@@ -1,0 +1,64 @@
+📷 Sistem Kamera Live Streaming ESP32-CAM Plus dengan Web Server
+📖 Deskripsi Umum
+Sistem ini adalah kamera live streaming berbasis ESP32-CAM yang dilengkapi dengan fitur perekaman otomatis berdasarkan kendali manual, visibilitas malam, perekaman audio, dan kontrol penuh melalui web browser. Sistem ini dirancang untuk portabilitas dan tidak memerlukan aplikasi tambahan—cukup gunakan browser dari perangkat yang terhubung ke jaringan Wi-Fi ESP32.
+
+🔧 Hardware yang Digunakan
+ESP32-CAM – Unit utama kamera dan pengendali sistem.
+
+Baterai Li-ion 18650 + Modul TP4056 – Sumber daya portabel dengan kemampuan pengisian ulang.
+
+Modul Mikrofon Digital (INMP441) – Mendukung perekaman audio sinkron dengan video.
+
+Sensor Cahaya (BH1750) – Mengatur pencahayaan otomatis berdasarkan kondisi sekitar.
+
+IR LED + Driver Transistor – Memberi penglihatan malam otomatis.
+
+Kartu microSD – Menyimpan file snapshot, video, dan audio.
+
+Web Server Internal (ESP32) – Menyediakan antarmuka kendali via browser.
+
+🌐 Fitur Web Server & Antarmuka
+Live Streaming: Tampilkan video real-time (format MJPEG) langsung di browser.
+
+Snapshot & Rekaman Manual: Tombol untuk mengambil gambar dan memulai/menghentikan perekaman.
+
+Pengelolaan File: Lihat, unduh, dan hapus file di kartu SD.
+
+Pengaturan IR & Audio: Aktifkan IR LED otomatis dan atur volume audio (jika tersedia).
+
+Login & Keamanan: Sistem autentikasi dengan kata sandi.
+
+Status Sensor: Menampilkan status cahaya, sisa memori SD, dan level baterai (jika tersedia).
+
+🎯 Fitur Utama & Cara Kerja
+1. Live Streaming Real-Time
+Kamera menyajikan video langsung ke web browser melalui jaringan Wi-Fi ESP32.
+
+Dapat diakses dari perangkat apa pun tanpa aplikasi tambahan.
+
+2. Snapshot & Rekaman Manual
+Snapshot dan video diambil secara manual melalui antarmuka web.
+
+File disimpan dalam format standar: .jpg, .mp4, atau sesuai konfigurasi.
+
+3. Rekaman Video & Audio ke microSD
+Merekam video bersamaan dengan audio dari mikrofon digital.
+
+Hasil rekaman tersimpan di microSD untuk diunduh atau ditinjau.
+
+4. Visibilitas Malam Otomatis
+Sensor cahaya BH1750 mendeteksi gelap dan mengaktifkan IR LED secara otomatis.
+
+5. Web UI Ringan
+Dibuat dengan HTML & JavaScript dan disimpan di memori ESP32 (SPIFFS atau LittleFS).
+
+Tidak memerlukan server atau software tambahan.
+
+💡 Keunggulan Sistem
+✅ Tanpa aplikasi tambahan – cukup akses via browser.
+
+✅ Portabel – cocok untuk lapangan dan lokasi tanpa listrik permanen.
+
+✅ Mudah digunakan – snapshot dan rekaman hanya dengan satu klik.
+
+✅ Serbaguna – ideal untuk CCTV sederhana, dokumentasi proyek, atau pemantauan lingkungan.

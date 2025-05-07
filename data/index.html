@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAVE-CAM Live Streaming</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>SAVE-CAM Live Streaming</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="sdcard.html">SD Card</a></li>
+                <li><a href="settings.html">Settings</a></li>
+                <li><a href="#" id="logout-link">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="live-stream">
+            <h2>Live Stream</h2>
+            <div id="video-container">
+                <video id="video-stream" controls autoplay></video>
+                <div id="status-indicators">
+                    <span id="connection-status" class="indicator offline">Connecting...</span>
+                    <span id="light-status" class="indicator">Light: Normal</span>
+                    <span id="ir-status" class="indicator">IR: Off</span>
+                    <span id="battery-status" class="indicator">Battery: N/A</span>
+                </div>
+            </div>
+
+            <!-- Digital Zoom Controls -->
+            <div id="zoom-controls">
+                <label for="zoom-level">Zoom Level:</label>
+                <input type="range" id="zoom-level" name="zoom" min="1" max="10" value="1">
+                <span id="zoom-value">1x</span>
+            </div>
+
+            <!-- Stream Controls -->
+            <div id="stream-controls">
+                <div class="form-group">
+                    <label for="resolution">Resolution:</label>
+                    <select id="resolution">
+                        <option value="low">Low (480p)</option>
+                        <option value="medium" selected>Medium (720p)</option>
+                        <option value="high">High (1080p)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="format">Video Format:</label>
+                    <select id="format">
+                        <option value="mp4" selected>MP4</option>
+                        <option value="avi">AVI</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="snapshot-format">Snapshot Format:</label>
+                    <select id="snapshot-format">
+                        <option value="jpg" selected>JPG</option>
+                        <option value="png">PNG</option>
+                    </select>
+                </div>
+
+                <button id="snapshot-button" class="button">Take Snapshot</button>
+                <button id="record-button" class="button">Start Recording</button>
+                <button id="stop-button" class="button" disabled>Stop Recording</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; SAVE-CAM Project - 2024</p>
+    </footer>
+
+    <!-- Import scripts in correct order -->
+    <script src="config.js"></script>
+    <script src="auth.js"></script>
+    <script src="video.js"></script>
+    <script>
+        // Initialize page
+        document.addEventListener("DOMContentLoaded", function() {
+            // Setup logout functionality
+            document.getElementById("logout-link").addEventListener("click", function(e) {
+                e.preventDefault();
+                SAVE_CAM_AUTH.logout();
+            });
+            
+            // Setup zoom display
+            const zoomSlider = document.getElementById("zoom-level");
+            const zoomValue = document.getElementById("zoom-value");
+            
+            zoomSlider.addEventListener("input", function() {
+                zoomValue.textContent = zoomSlider.value + "x";
+            });
+        });
+    </script>
+</body>
+</html>

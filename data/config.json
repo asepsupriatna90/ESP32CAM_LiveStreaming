@@ -1,0 +1,31 @@
+// Konfigurasi yang diperlukan
+const CONFIG = {
+    username: 'admin',            // Username untuk login
+    password: 'password123',      // Password untuk login
+    esp32CamIp: 'http://[YOUR_ESP32_CAM_IP]'  // IP ESP32-CAM (ganti sesuai dengan alamat IP perangkat kamu)
+};
+
+// Fungsi untuk login menggunakan konfigurasi
+function login() {
+    const inputUsername = document.getElementById('username').value;
+    const inputPassword = document.getElementById('password').value;
+
+    // Mengecek apakah username dan password cocok dengan konfigurasi
+    if (inputUsername === CONFIG.username && inputPassword === CONFIG.password) {
+        alert("Login Berhasil!");
+        window.location.href = "sdcard.html";  // Redirect ke halaman SD Card
+    } else {
+        alert("Username atau Password salah!");
+    }
+}
+
+// Fungsi untuk menangani pengaturan live stream atau file SD Card
+function getStreamUrl() {
+    return `${CONFIG.esp32CamIp}/stream`;  // Menggunakan IP dari konfigurasi
+}
+
+// Contoh penggunaan konfigurasi dalam pengaturan live stream
+const streamUrl = getStreamUrl();
+console.log("Live stream tersedia di: ", streamUrl);
+
+// Kamu bisa menggunakan `CONFIG` di bagian lain aplikasi untuk akses yang lebih terstruktur

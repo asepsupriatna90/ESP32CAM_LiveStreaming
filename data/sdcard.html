@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SD Card Files - SAVE-CAM</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>SAVE-CAM SD Card Manager</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="sdcard.html">SD Card</a></li>
+                <li><a href="settings.html">Settings</a></li>
+                <li><a href="#" id="logout-link">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="sdcard-info">
+            <h2>SD Card Information</h2>
+            <div id="storage-info">
+                <div class="storage-meter">
+                    <div id="storage-used" style="width: 0%"></div>
+                </div>
+                <p id="storage-stats">Loading storage information...</p>
+            </div>
+            <button id="refresh-btn" class="button">Refresh</button>
+        </section>
+
+        <section id="sdcard-files">
+            <h2>Files on SD Card</h2>
+            
+            <div id="file-filters">
+                <label for="file-type">Filter by type:</label>
+                <select id="file-type">
+                    <option value="all">All Files</option>
+                    <option value="video">Videos</option>
+                    <option value="image">Images</option>
+                    <option value="audio">Audio</option>
+                </select>
+                
+                <label for="file-sort">Sort by:</label>
+                <select id="file-sort">
+                    <option value="date-desc">Newest First</option>
+                    <option value="date-asc">Oldest First</option>
+                    <option value="name-asc">Name (A-Z)</option>
+                    <option value="name-desc">Name (Z-A)</option>
+                    <option value="size-desc">Size (Largest)</option>
+                    <option value="size-asc">Size (Smallest)</option>
+                </select>
+            </div>
+            
+            <div id="file-container">
+                <div id="loading-indicator">Loading files from SD Card...</div>
+                <ul id="file-list"></ul>
+            </div>
+            
+            <div id="pagination">
+                <button id="prev-page" disabled>Previous</button>
+                <span id="page-info">Page 1</span>
+                <button id="next-page" disabled>Next</button>
+            </div>
+            
+            <div id="file-actions">
+                <button id="select-all-btn">Select All</button>
+                <button id="deselect-all-btn">Deselect All</button>
+                <button id="delete-selected-btn">Delete Selected</button>
+            </div>
+        </section>
+        
+        <section id="media-preview">
+            <h2>File Preview</h2>
+            <div id="preview-container">
+                <p id="no-preview">Select a file to preview</p>
+                <img id="image-preview" style="display: none;">
+                <video id="video-preview" controls style="display: none;"></video>
+                <audio id="audio-preview" controls style="display: none;"></audio>
+            </div>
+            <div id="file-details">
+                <p>Filename: <span id="file-name">-</span></p>
+                <p>Size: <span id="file-size">-</span></p>
+                <p>Date: <span id="file-date">-</span></p>
+                <p>Type: <span id="file-type-info">-</span></p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; SAVE-CAM Project - 2024</p>
+    </footer>
+
+    <!-- Import scripts in correct order -->
+    <script src="config.js"></script>
+    <script src="auth.js"></script>
+    <script src="file-access.js"></script>
+    <script>
+        document.getElementById("logout-link").addEventListener("click", function(e) {
+            e.preventDefault();
+            SAVE_CAM_AUTH.logout();
+        });
+    </script>
+</body>
+</html>

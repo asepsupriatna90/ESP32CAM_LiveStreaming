@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - SAVE-CAM</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Camera Settings</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="sdcard.html">SD Card</a></li>
+                <li><a href="settings.html">Settings</a></li>
+                <li><a href="#" id="logout" onclick="logout()">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Preview Video -->
+        <section id="live-stream">
+            <h2>Live Stream Preview</h2>
+            <div id="video-container">
+                <video id="video-stream" controls autoplay>
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </section>
+
+        <!-- Pengaturan Live Stream -->
+        <section id="live-video-settings">
+            <h2>Live Stream Settings</h2>
+            <form id="live-video-settings-form">
+                <div class="form-group">
+                    <label for="live-resolution">Resolution:</label>
+                    <select id="live-resolution" name="live-resolution">
+                        <option value="480p">480p (Low)</option>
+                        <option value="720p">720p (Medium)</option>
+                        <option value="1080p">1080p (High)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="live-fps">Frame Rate (FPS):</label>
+                    <input type="number" id="live-fps" name="live-fps" min="1" max="30" value="15">
+                </div>
+
+                <button type="submit">Save Stream Settings</button>
+            </form>
+        </section>
+
+        <!-- Pengaturan Rekaman -->
+        <section id="record-video-settings">
+            <h2>Recording Settings</h2>
+            <form id="record-video-settings-form">
+                <div class="form-group">
+                    <label for="record-resolution">Resolution:</label>
+                    <select id="record-resolution" name="record-resolution">
+                        <option value="480p">480p</option>
+                        <option value="720p">720p</option>
+                        <option value="1080p">1080p</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="record-fps">Frame Rate (FPS):</label>
+                    <input type="number" id="record-fps" name="record-fps" min="1" max="30" value="15">
+                </div>
+
+                <div class="form-group">
+                    <label for="video-format">Video Format:</label>
+                    <select id="video-format" name="video-format">
+                        <option value="mp4">MP4</option>
+                        <option value="avi">AVI</option>
+                    </select>
+                </div>
+
+                <button type="submit">Save Recording Settings</button>
+            </form>
+        </section>
+
+        <!-- Pengaturan Snapshot -->
+        <section id="image-settings">
+            <h2>Snapshot Settings</h2>
+            <form id="image-settings-form">
+                <div class="form-group">
+                    <label for="image-format">Image Format:</label>
+                    <select id="image-format" name="image-format">
+                        <option value="jpg">JPG</option>
+                        <option value="png">PNG</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="snapshot-size">Resolution:</label>
+                    <select id="snapshot-size" name="snapshot-size">
+                        <option value="640x480">640x480</option>
+                        <option value="1280x720">1280x720</option>
+                        <option value="1920x1080">1920x1080</option>
+                    </select>
+                </div>
+
+                <button type="submit">Save Snapshot Settings</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 - SAVE-CAM Project</p>
+    </footer>
+
+    <!-- JavaScript untuk menyimpan pengaturan -->
+    <script src="script.js"></script>
+    <script>
+        const baseURL = "http://[YOUR_ESP32_CAM_IP]/api/settings";
+
+        document.getElementById("live-video-settings-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const liveResolution = document.getElementById("live-resolution").value;
+            const liveFps = document.getElementById("live-fps").value;
+            fetch(`${baseURL}/live`, {
+                method: "POST",
+                body: JSON.stringify({ resolution: liveResolution, fps: liveFps }),
+                headers: { "Content-Type": "application/json" }
+            })
+            .then(res => res.json())
+            .then(data => alert(data.success ? "Stream settings saved!" : "Failed to save stream settings."))
+            .catch(err => console.error(err));
+        });
+
+        document.getElementById("record-video-settings-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const recordResolution = document.getElementById("record-resolution").value;
+            const recordFps = document.getElementById("record-fps").value;
+            const videoFormat = document.getElementById("video-format").value;
+            fetch(`${baseURL}/record`, {
+                method: "POST",
+                body: JSON.stringify({ resolution: recordResolution, fps: recordFps, format: videoFormat }),
+                headers: { "Content-Type": "application/json" }
+            })
+            .then(res => res.json())
+            .then(data => alert(data.success ? "Recording settings saved!" : "Failed to save recording settings."))
+            .catch(err => console.error(err));
+        });
+
+        document.getElementById("image-settings-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const imageFormat = document.getElementById("image-format").value;
+            const snapshotSize = document.getElementById("snapshot-size").value;
+            fetch(`${baseURL}/snapshot`, {
+                method: "POST",
+                body: JSON.stringify({ format: imageFormat, size: snapshotSize }),
+                headers: { "Content-Type": "application/json" }
+            })
+            .then(res => res.json())
+            .then(data => alert(data.success ? "Snapshot settings saved!" : "Failed to save snapshot settings."))
+            .catch(err => console.error(err));
+        });
+    </script>
+</body>
+</html>
